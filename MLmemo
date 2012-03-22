@@ -55,4 +55,19 @@
 ユーザインタラクション
 	
 	永続化モデル
-		
+
+類似度計算
+	・コサインベースの類似度計算
+		各特徴ベクトルを正規化し，内積を求め，それを相関度とする．
+	・相関ベースの類似度計算（Correlation-based similarity computation）
+		２つのアイテム間の類似度として「ピアソンの相関係数」を計算する．
+		corr(i,j) = ( Sum_{u \in U}(Rui - \var{Ri})(Ruj - \var{Rj}) ) /  ( \sqrt{ \Sum_{u \in U}(Rui - \var{Ri})^2 } \cdot \sqrt{ \Sum_{u \in U}(Ruj - \var{Rj})^2 }  )
+			corr(i,j) : アイテムi,jの類似度
+			Rui : ユーザuのアイテムiに対する評価
+			var{Ri} : アイテムi のすべてのユーザからの評価の平均
+		二つのアイテムの相関度が正の大きな数であれば，二つのアイテムは同じ特徴を持つ
+		負の大きな数であれば，それぞれ真逆の特徴を持つ
+	・調整コサインベースの類似度計算(Adjusted cosine-based similarity computation)
+		similarity(i,j) = ( Sum_{u \in U}(Rui - \var{Ru})(Ruj - \var{Ru}) ) /  ( \sqrt{ \Sum_{u \in U}(Rui - \var{Ru})^2 } \cdot \sqrt{ \Sum_{u \in U}(Ruj - \var{Ru})^2 }  )
+		corrの\var{Ri}が\var{Ru}に変わる
+
